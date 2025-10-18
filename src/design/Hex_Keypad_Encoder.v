@@ -33,7 +33,7 @@ module Hex_Keypad_Grayhill_072(
     input clock,
     input reset,
     output reg [3:0] Code,
-    output Valid,
+    output Valid,   
     output reg [3:0] Col
     );
     
@@ -45,22 +45,22 @@ module Hex_Keypad_Grayhill_072(
     assign Valid = ((state == S_1) || (state == S_2) || (state == S_3) || (state == S_4)) && Row;
     always @ (Row or Col)
     case ({Row, Col})
-        8'b0001_0001: Code = 0; 
-        8'b0001_0010: Code = 1;
-        8'b0001_0100: Code = 2; 
-        8'b0001_1000: Code = 3;
+        8'b0001_0001: Code = 1; 
+        8'b0001_0010: Code = 2;
+        8'b0001_0100: Code = 3; 
+        8'b0001_1000: Code = 10;        //A
         8'b0010_0001: Code = 4; 
         8'b0010_0010: Code = 5;
         8'b0010_0100: Code = 6;
-        8'b0010_1000: Code = 7;
-        8'b0100_0001: Code = 8;
-        8'b0100_0010: Code = 9;
-        8'b0100_0100: Code = 10;        //A
-        8'b0100_1000: Code = 11;        //B
-        8'b1000_0001: Code = 12;        //C
-        8'b1000_0010: Code = 13;        //D
-        8'b1000_0100: Code = 14;        //E
-        8'b1000_1000: Code = 15;        //F
+        8'b0010_1000: Code = 11;        //B
+        8'b0100_0001: Code = 7;
+        8'b0100_0010: Code = 8;
+        8'b0100_0100: Code = 9;        
+        8'b0100_1000: Code = 12;        //C
+        8'b1000_0001: Code = 14;        //*
+        8'b1000_0010: Code = 0;        
+        8'b1000_0100: Code = 15;        //#
+        8'b1000_1000: Code = 13;        //D
         default: Code = 0;                     //Arbitrary choice
     endcase
     always @(posedge clock or posedge reset)
